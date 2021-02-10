@@ -53,8 +53,14 @@ deref(x) = x
 deref(x::Array{T,0}) where T = x[]
 macro reliable_digits(expr)
     return quote
-        determinism.resetSeed() # gets a new seed to get a new result despite the deterministic stochastic arithmetic
-        x = [value.($(esc(expr))) for i = 1:10]
+        x = Vector()
+        for i = 1:10
+            # gets a new seed to get a new result despite the deterministic stochastic arithmetic
+            Determinism.resetSeed()
+            # computes expression
+            output = value.($(esc(expr)))
+            push!(x, output)
+        end
         mu = mean(x)
         sigma = std(x)
         s = -log10.((/).(sigma, abs.(mu)))
