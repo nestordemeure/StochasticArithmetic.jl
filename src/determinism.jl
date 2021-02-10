@@ -23,7 +23,7 @@ and *diffusion*: all bits in the output have a 50% probability of being flipped 
 """
 function randBool(args...)
   global DSAseed # put global variable in scope
-  pseudoRandomNumber = hash((DSAseed, args...)) # hash based random number
+  pseudoRandomNumber = hash((DSAseed, args...)) # hash used as a random number
   return isodd(pseudoRandomNumber) # turn hash into a bool
 end
 
