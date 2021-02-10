@@ -1,17 +1,19 @@
 module Determinism
 export randBool, resetSeed
 
+using Random
+
 """
 seed used for the deterministic stochastic arithmetic
 should be changed from one sample to another
 """
-DSAseed = rand(UInt64)
+DSAseed = rand(Int64)
 
 """
 changes the seed in order to run the computation and get a new result
 """
 function resetSeed()
-    global DSAseed = rand(UInt64)
+  global DSAseed = rand(Int64)
 end
 
 """
@@ -21,8 +23,8 @@ and *diffusion*: all bits in the output have a 50% probability of being flipped 
 """
 function randBool(args...)
   global DSAseed # put global variable in scope
-  argsUInt = map(x -> reinterpret(UInt64,x), args) # converts inputs to UInt64
-  seed = xor(DSAseed, argsUInt...) # fuses inputs and seed
+  argsInt = map(x -> reinterpret(Int64,x), args) # converts inputs to Int64
+  seed = xor(DSAseed, argsInt...) # fuses inputs and seed
   randomBool = isodd(count_ones(seed)) # very simple random number generator
   return randomBool
 end
