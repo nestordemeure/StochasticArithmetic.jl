@@ -43,8 +43,7 @@ println("result Sfloat (reset): ", rumpTest(SFloat64).value)
 println( @reliable_digits rumpTest(SFloat64) )
 
 # this function is exact despite having imprecise components
-# it cannot be catched by traditional stochastic arithmetic 
-# does deterministic arithmetic work here ?
+# it is wrongly labeled by traditional stochastic arithmetic 
 function detTest(T)
     x = rumpTest(T) # numerical noise
     y = rumpTest(T) # identical numerical noise 
