@@ -29,9 +29,9 @@ macro defRound(op, eft)
         function $(esc(op))(::Rand, a, b)
             (res, err) = $(esc(eft))(a, b)
             if err < 0
-                rand(Bool) ? $(esc(prevfloat))(res) : res
+                determinism.randBool(a,b) ? $(esc(prevfloat))(res) : res
             elseif err > 0
-                rand(Bool) ? $(esc(nextfloat))(res) : res
+                determinism.randBool(a,b) ? $(esc(nextfloat))(res) : res
             else
                 res
             end
