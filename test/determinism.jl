@@ -20,14 +20,14 @@ end
 # non-instrumented run
 println("result float: ", rumpTest(Float64))
 
-# instrumented but we always get the same result as we are using the same seed
+# instrumented (thus likely different from Float64 runs) but we always get the same result as we are using the same seed
 println("result Sfloat: ", rumpTest(SFloat64).value)
 println("result Sfloat: ", rumpTest(SFloat64).value)
 println("result Sfloat: ", rumpTest(SFloat64).value)
 println("result Sfloat: ", rumpTest(SFloat64).value)
 println("result Sfloat: ", rumpTest(SFloat64).value)
 
-# now varying the seed between runs
+# now varying the seed between runs (getting the usual behaviour of stochastic arithmetic)
 StochasticArithmetic.Determinism.resetSeed()
 println("result Sfloat (reset): ", rumpTest(SFloat64).value)
 StochasticArithmetic.Determinism.resetSeed()
@@ -41,3 +41,16 @@ println("result Sfloat (reset): ", rumpTest(SFloat64).value)
 
 # digits computed over 10 runs
 println( @reliable_digits rumpTest(SFloat64) )
+
+# this function is exact despite having imprecise components
+# it cannot be catched by traditional stochastic arithmetic 
+# does deterministic arithmetic work here ?
+function detTest(T)
+    x = rumpTest(T) # numerical noise
+    y = rumpTest(T) # identical numerical noise 
+    zero = x - y # exact zero
+    return 1. + zero # exact one
+end
+
+# this should have an infinity of digits
+println( @reliable_digits detTest(SFloat64) )

@@ -30,10 +30,8 @@ macro defRound(op, eft)
             (res, err) = $(esc(eft))(a, b)
             if err < 0
                 Determinism.randBool(a,b) ? $(esc(prevfloat))(res) : res
-                #rand(Bool) ? $(esc(prevfloat))(res) : res
             elseif err > 0
                 Determinism.randBool(a,b) ? $(esc(nextfloat))(res) : res
-                #rand(Bool) ? $(esc(nextfloat))(res) : res
             else
                 res
             end
