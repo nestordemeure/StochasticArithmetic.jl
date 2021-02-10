@@ -23,10 +23,8 @@ and *diffusion*: all bits in the output have a 50% probability of being flipped 
 """
 function randBool(args...)
   global DSAseed # put global variable in scope
-  argsInt = map(x -> reinterpret(Int64,x), args) # converts inputs to Int64
-  seed = xor(DSAseed, argsInt...) # fuses inputs and seed
-  randomBool = isodd(hash(seed)) # very simple random number generator
-  return randomBool
+  pseudoRandomNumber = hash((DSAseed, args...)) # hash based random number
+  return isodd(pseudoRandomNumber)
 end
 
 end # module 
