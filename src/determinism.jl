@@ -24,14 +24,12 @@ and *diffusion*: all bits in the output have a 50% probability of being flipped 
 function randBool(args...)
   global DSAseed # put global variable in scope
   pseudoRandomNumber = hash((DSAseed, args...)) # hash based random number
-  return isodd(pseudoRandomNumber)
+  return isodd(pseudoRandomNumber) # turn hash into a bool
 end
 
 end # module 
 
+# NOTES:
 # diffusion is an important property in cryptographic cyphers (see paper "random as easy as 1, 2, 3" for concept and fast PRNG that have this property)
-#  means that a change of 1 bit in the input guarantees that all bits in the output have a 50% proba of changing
-#
-# meaning that if we use such a cypher on top of our XOR mix, we have the guarantee that the output can be used without fear of bias.
-#
-# splittable RNG: http://www.thesalmons.org/john/random123/papers/random123sc11.pdf
+# means that a change of 1 bit in the input guarantees that all bits in the output have a 50% proba of changing
+# splittable RNG paper (hash functions used as RNG): http://www.thesalmons.org/john/random123/papers/random123sc11.pdf
