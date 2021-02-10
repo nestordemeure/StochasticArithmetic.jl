@@ -39,11 +39,11 @@ println("result Sfloat (reset): ", rumpTest(SFloat64).value)
 StochasticArithmetic.Determinism.resetSeed()
 println("result Sfloat (reset): ", rumpTest(SFloat64).value)
 
-# digits computed over 10 runs
+# number of digits, computed over 10 runs
 println( @reliable_digits rumpTest(SFloat64) )
 
 # this function is exact despite having imprecise components
-# it is wrongly labeled by traditional stochastic arithmetic 
+# it is, wrongly, labelled as inacurate by traditional stochastic arithmetic 
 function detTest(T)
     x = rumpTest(T) # numerical noise
     y = rumpTest(T) # identical numerical noise 

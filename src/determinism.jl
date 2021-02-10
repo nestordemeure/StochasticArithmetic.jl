@@ -1,8 +1,6 @@
 module Determinism
 export randBool, resetSeed
 
-using Random
-
 """
 seed used for the deterministic stochastic arithmetic
 should be changed from one sample to another
