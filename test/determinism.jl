@@ -40,5 +40,4 @@ StochasticArithmetic.Determinism.resetSeed()
 println("result Sfloat (reset): ", rumpTest(SFloat64).value)
 
 # digits computed over 10 runs
-# NOTE: we observe a variance that is lower than when using raw stochastic arithmetic
-@reliable_digits rumpTest(SFloat64)
+println( @reliable_digits rumpTest(SFloat64) )
